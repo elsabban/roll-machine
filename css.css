@@ -146,6 +146,11 @@
     transform: translateX(-50%);
     background-color: brown;
     transition-delay: 0;
+    
+}
+#slider.back-to-top {
+    transition: 0.5s;
+    top: -10px !important;
 }
 
 

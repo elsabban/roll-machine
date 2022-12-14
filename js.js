@@ -68,7 +68,7 @@ var sm = (function (undefined) {
     function action() {
         if (start !== undefined) return;
 
-        for (var i = 0; i < 3; ++i) {
+        for (var i = 0; i < 2; ++i) {
             speeds[i] = Math.random() + .5;
             r[i] = (Math.random() * 3 | 0) * height / 3;
         }
@@ -129,8 +129,8 @@ var sliderTopPos = slider.getBoundingClientRect().top
 var first = true;
 var onceRoll = true
 document.addEventListener('mousemove', (e) => {
-     console.log(sliderTubetopPos,sliderTubeRelativeHeight)
     if (isMouseIn && e.y > sliderTubetopPos && e.y < sliderTubeRelativeHeight) {
+        slider.classList.remove('back-to-top')
         slider.style.top = (e.y - sliderTubetopPos - slider.offsetHeight/2) + 'px'
         if((slider.getBoundingClientRect().top > sliderTubeRelativeHeight - 100) && onceRoll) {
             
@@ -140,8 +140,10 @@ document.addEventListener('mousemove', (e) => {
     } else {
 
         if (sliderTopPos < slider.getBoundingClientRect().top) {
+            // console.log('true')
             if (first) {
-                interval()
+                slider.classList.add('back-to-top')
+                // interval()
             }
         }
     }
@@ -152,15 +154,16 @@ var intervall;
 function interval() {
     first = false;
     intervall = setInterval(() => {
-        // var crnt = slider.getBoundingClientRect().top
-        if (sliderTopPos < slider.getBoundingClientRect().top) {
-            console.log(slider.getBoundingClientRect().top - 1)
-            slider.style.top = (slider.getBoundingClientRect().top - 1) + 'px'
+        var crnt = slider.getBoundingClientRect().top
+        console.log(crnt)
+        if (sliderTopPos < crnt) {
+            
+            slider.style.top = (crnt - 150) + 'px'
 
         } else {
             slider.style.top = '-10px'
             first = true
             clearInterval(intervall)
         }
-    }, 2000);
+    }, 20);
 }
